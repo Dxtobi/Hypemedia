@@ -235,7 +235,20 @@ console.log("hit")
         });
 
 });
-
+router.get( '/related/:tagID', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    Post.find({tags:req.params.tagID})
+        .populate('tags')
+        //.sort({ date: -1 })
+        .limit(5)
+        .then(posts => {
+            //console.log(posts)
+        return res.json( posts )
+    })
+        .catch(err => {
+            console.log(err.message)
+            return res.status(404).json({ nopostsfound: 'No posts found!' })
+        });
+});
 router.delete( '/comment/:id/:comment_id', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     
     Post.findById( req.params.id )

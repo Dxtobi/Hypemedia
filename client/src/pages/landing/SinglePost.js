@@ -4,7 +4,7 @@ import { getPost, addLike } from '../../actions/postsActions'
 //import Cheader from './components/Cheader'
 //import { LastNews } from './components/LastNews'
 import Loading from "../../components/shared/Loading"
-//import NewsList from './components/NewsList'
+import Related from './components/related'
 import DOMPurify from 'dompurify'
 import { FiClock } from 'react-icons/fi';
 import { AiFillEye, AiFillHeart } from 'react-icons/ai'
@@ -36,11 +36,20 @@ export class SinglePost extends Component {
             'October',
             'November',
             'December'
-        ]
+        ],
+        oldId:""
     }
 
     componentWillMount() {
         this.props.getPost(this.props.match.params.id)
+        this.setState({oldId:this.props.match.params.id})
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.oldId, this.props.match.params.id)
+        if (this.state.oldId!==this.props.match.params.id) {
+            window.location.reload()
+        }
     }
 
 
@@ -55,9 +64,7 @@ export class SinglePost extends Component {
         return  `${date} ${months[m]} ${y}-${h}:${min}`;
     }
 
-    componentDidUpdate() {
-       // console.log(this.props)
-    }
+  
 
     createMarkup = (html) => {
             return  {
@@ -111,9 +118,14 @@ export class SinglePost extends Component {
                     <button className="base-icon"><AiFillEye /> </button>{post.views}views
                     </div>
                 </div>
+                <div>
+                <h2>Related</h2>
+                { post.tags && <Related tagID={post.tags[0]._id}/>}
+                </div>
                 <div className="comment_area">
                     <Comments addComment={this.props.addComment} comments={post.comments} postId={post._id}/>
                 </div>
+              
             </div>
         )
     }

@@ -27,4 +27,5 @@ export const ADMIN_GET_GLOBAL_INFO = 'ADMIN_GET_GLOBAL_INFO';
 export const GET_MESSAGE = 'GET_MESSAGE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const CLEAR_POSTS = "CLEAR_POSTS";
-export const GET_TAGS = "GET_TAGS"
+export const GET_TAGS = "GET_TAGS";
+export const RELATED_POST = "RELATED_POST";

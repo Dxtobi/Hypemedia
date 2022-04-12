@@ -55,7 +55,7 @@ export const NewsList = ({post}) => {
                     <div className="news_list_details_header_text">
                         {truncate(post.text, 50)}
                     </div>
-                    <Link to={`/news/${post._id}`} className="readMoreBtn">
+                    <Link to={`/news/${post._id}`}  className="readMoreBtn">
                         Read More
                     </Link>
                 </div>

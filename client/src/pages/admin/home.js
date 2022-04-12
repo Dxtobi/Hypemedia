@@ -116,8 +116,6 @@ _id: "61e3f862882fc923c4782d3
                                             <div className="post-grump">{lastPost.likes} Likes</div>
                                             <div className="post-grump">{lastPost.comments.length} Comments</div>
                                             <div className="post-grump">{lastPost.date} </div>
-                                            <div className="post-grump">{lastPost.tags}</div>
-                                            
                                         </div>
                                     </div>
                                 )

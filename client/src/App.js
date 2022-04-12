@@ -25,6 +25,7 @@ import EditPost from './pages/admin/EditPost';
 import SinglePost from './pages/landing/SinglePost';
 import Messages from './pages/admin/Messages';
 import  Search  from './pages/landing/search';
+import LoginClient from './pages/landing/Login';
 
 
 
@@ -65,6 +66,7 @@ class App extends Component {
                 <Route exact path="/news/:id" component={SinglePost} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={Search} />
+                <Route exact path="/auth_user" component={LoginClient} />
                 <PrivateRoute exact path="/create/admin" component={newAdmin} />
                 <PrivateRoute exact path="/create/tag" component={NewTag} />
                 <PrivateRoute exact path="/admins/messages" component={Messages} />

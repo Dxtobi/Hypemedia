@@ -24,11 +24,11 @@ export class Login extends Component {
             return <Redirect to="/adm" />
         }
         return (
-            <div>
-                <input type="email" placeholder="enter email"
+            <div className="login_admin">
+                <input className="login_input" type="email" placeholder="enter email"
                     onChange={(e) => this.setState({ email: e.target.value })}
                 />
-                <input type="password" placeholder="enter password"
+                <input className="login_input" type="password" placeholder="enter password"
                     onChange={(e) => this.setState({ password: e.target.value })}
                 />
                 <button onClick={(e) => {
@@ -38,7 +38,7 @@ export class Login extends Component {
                         email: this.state.email,
                     }
                     this.props.loginUser(data)
-                }}>Login</button>
+                }} className="login_input_button" >Login</button>
             </div>
         )
     }

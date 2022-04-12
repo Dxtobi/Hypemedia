@@ -75,7 +75,7 @@ router.post( '/login', ( req, res ) => {
     User.findOne({ email })
         .then( user => {
         //check for user
-            console.log(user)
+           // console.log(user)
             if (!user) {
             
             errors.email = 'User not found!';
@@ -88,20 +88,19 @@ router.post( '/login', ( req, res ) => {
             if( isMatch ){
                 //create JWT payload
                 const payload = { id: user.id, email:user.email, fullName: user.fullName,  username:user.username, }
-                
                 jwt.sign(
                     payload, 
                     keys.secretKey, 
                     { expiresIn: 3600 * 60 * 60 * 60}, 
                     ( err, token ) => {
-                        res.json({
+                      return  res.json({
                             success: true,
                             token: 'Bearer ' + token,
                             user:user
                         });    
                 });
-                
             } else {
+                console.log("error-pass")
                 errors.password = 'Password incorrect!'; 
                 return res.status( '400' ).json( errors );
             }

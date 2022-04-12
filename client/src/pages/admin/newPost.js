@@ -29,7 +29,8 @@ class NewPost extends Component {
         text:"",
         tags: [],
         error: false,
-        cleared:false
+        cleared: false,
+        preview:false
     };
 
     componentDidMount() {
@@ -45,8 +46,9 @@ class NewPost extends Component {
         this.setState({
             contentState: contentState,
             error: false,
-            
         });
+
+        console.log(contentState)
     };
     
     onChangeImage = (e) => {
@@ -162,6 +164,11 @@ class NewPost extends Component {
     setCleared = () => {
         this.setState({cleared:false})
     }
+    setPreview = () => {
+        this.setState({
+            preview:!this.state.preview
+        })
+    }
     render() {
         //console.log(this.state)
         const { contentState, postHeader, cleared } = this.state;
@@ -172,6 +179,10 @@ class NewPost extends Component {
                  <div className="admin-container">
                     <SideBar />
                     <div className="adm-content-container">
+                        <div className='post-btn-holder'>
+                            <button onClick={this.onSend} className="storeBtn">PUBLISH</button>
+                            <button onClick={this.setPreview} className="storeBtn">PREVIEW</button>
+                        </div>
                         <TitleHeader onChange={this.onchangeHeader} value={postHeader} placeholder="Post Header"/>
                         <SelectImg onChangeImage={this.onChangeImage}/>
                         <Editor contentState={contentState}
@@ -179,6 +190,12 @@ class NewPost extends Component {
                             normalText={this.normalText}
                             setCleared={this.setCleared}
                             cleared={cleared}
+                            preview={this.state.preview}
+                            display={this.state.display}
+                            header={this.state.postHeader}
+                            videoLink={this.state.videoLink}
+                            tags={this.state.tags}
+                            setPreview={this.setPreview}
                         />
                         <div className="tag-container">
                             {
@@ -191,7 +208,7 @@ class NewPost extends Component {
                                 })
                             }
                         </div>
-                        <button onClick={this.onSend} className="storeBtn">STORE</button>
+                        
                     </div>
                 </div>
             </div>

@@ -12,7 +12,8 @@ import {
   GET_MESSAGE,
   ADD_MESSAGE,
   CLEAR_POSTS,
-  GET_TAGS
+  GET_TAGS,
+  RELATED_POST
 } from './types';
 
 export const addPost = postData => dispatch => {
@@ -63,7 +64,7 @@ export const getTags = data => dispatch => {
       .catch(err =>
           dispatch({
               type: GET_ERRORS,
-              payload: err.response.data
+              payload: err.response
           })
       );
 };
@@ -194,6 +195,25 @@ export const removeLike = id => dispatch => {
   axios
     .post(`/api/posts/unlike/${id}`)
     .then(res => dispatch(getPosts()))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const getRelatedPost = (tagID, )  => dispatch => {
+  
+  console.log("hit related")
+  axios
+    .get(`/api/posts/related/${tagID}`)
+    .then(res =>
+      dispatch({
+        type: RELATED_POST,
+        payload:res.data
+      })
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

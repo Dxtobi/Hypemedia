@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { FiClock } from 'react-icons/fi';
 import LoadMore from '../../../components/shared/LoadingMore'
+
+const backurl= 'http://localhost:3000/'
 /*import DOMPurify from 'dompurify';
 const createMarkup = (html) => {
-       
         return  {
         __html: DOMPurify.sanitize(html)
         }
@@ -17,13 +18,15 @@ export const LastNews = ({ post }) => {
             return str;
         }
     }
-  //  console.log(post)
+   
+    console.log(post)
     if (post === undefined) {
        return <LoadMore/>
     }
+    const img = `${post.postImage[0].toString().replace("\\", "/")}`
     return (
         <div>
-            <div className="last_news">
+            <div className="last_news" style={{backgroundImage:` url(${backurl + img})`, backgroundPosition: 'center'}}>
                 <div className="content-display-first-post">
                     <div className="last_post_header">{post.header}</div>
                     <div>

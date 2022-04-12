@@ -1,4 +1,4 @@
-import {GET_POSTS_TAGS, ADD_POST,  CLEAR_POSTS, GET_POSTS, DELETE_POST, POST_LOADING, GET_POST, GET_MESSAGE, GET_TAGS} from '../actions/types';
+import {GET_POSTS_TAGS, ADD_POST,  CLEAR_POSTS, GET_POSTS, DELETE_POST, POST_LOADING, GET_POST, GET_MESSAGE, GET_TAGS, RELATED_POST} from '../actions/types';
 
 const initialState = {
   posts: [],
@@ -15,7 +15,8 @@ const initialState = {
       views: 0,},
   loading: false,
     messages:[],
-    tags:[]
+  tags: [],
+    related:[]
 };
 
 export default function(state = initialState, action) {
@@ -25,6 +26,11 @@ export default function(state = initialState, action) {
           ...state,
           loading: true
         }
+      case RELATED_POST:
+          return {
+            ...state,
+            related: action.payload,
+          }
         case CLEAR_POSTS:
           return {
             ...state,

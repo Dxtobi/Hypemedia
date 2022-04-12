@@ -4,10 +4,11 @@ import { Editor } from 'react-draft-wysiwyg';
 import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Preview from './preview';
 
 
 
-const EditorMain = ({onContentStateChangePass, normalText, cleared, preview, setCleared}) => {
+const EditorMain = ({onContentStateChangePass, normalText, cleared, preview, display, setCleared, header, videoLink, tags, setPreview }) => {
   const [editorState, setEditorState] = useState(
     () => EditorState.createEmpty(),
   );
@@ -47,11 +48,7 @@ const EditorMain = ({onContentStateChangePass, normalText, cleared, preview, set
     //console.log(e.blocks[0].text);
    return normalText(e.blocks[0].text)
   }
-    const createMarkup = (html) => {
-        return  {
-        __html: DOMPurify.sanitize(html)
-        }
-    }
+   
 
   return (
     <div className="App">
@@ -64,11 +61,13 @@ const EditorMain = ({onContentStateChangePass, normalText, cleared, preview, set
         toolbarClassName="toolbar-class"
       />
       {
-        preview && <div>
-        <div className="preview"
-            dangerouslySetInnerHTML={createMarkup(convertedContent)}>
-        </div>
-        </div>
+        preview && <Preview display={display}
+          convertedContent={convertedContent}
+          header={header}
+          videoLink={videoLink}
+          tags={tags}
+          setPreview={setPreview}
+        />
       }
     </div>
   )
