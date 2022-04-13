@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { FiClock } from 'react-icons/fi';
 import LoadMore from '../../../components/shared/LoadingMore'
 
-const backurl= 'http://localhost:3000/'
+const backurl= window.location.href
+ //'http://localhost:3000/'
 /*import DOMPurify from 'dompurify';
 const createMarkup = (html) => {
         return  {
