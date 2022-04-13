@@ -27,6 +27,7 @@ mongoose
             let count = await User.countDocuments({});
   
             if (count < 1) {
+console.log("count users 0:", count)
                 var user = {
                     fullName: "oluwatobi",
                     email: "akanbijosephtobi@gmail.com",
@@ -43,8 +44,9 @@ mongoose
                     })
                 })
              
-            }
-  
+            }else{  
+             console.log("count users:", count)
+  }
           
   
         } catch (err) {
