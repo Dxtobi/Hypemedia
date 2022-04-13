@@ -26,7 +26,7 @@ mongoose
             // you can refer here any other method to get count or number of record
             let count = await User.countDocuments({});
   
-            if (count <= 0) {
+            if (count < 1) {
                 var user = {
                     fullName: "oluwatobi",
                     email: "akanbijosephtobi@gmail.com",
