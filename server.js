@@ -10,9 +10,7 @@ const path = require('path');
 const app = express();
 const bcrypt = require( 'bcryptjs' );
 //body parser middleware
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.use('/upload' , express.static(path.join(__dirname , '/upload')));
+
 //db config
 const db = require('./config/keys').mongoURI;
 const User = require('./models/User');
@@ -65,7 +63,9 @@ require('./config/passport')(passport);
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')))
 }
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use('/upload' , express.static(path.join(__dirname , '/upload')));
 app.use(express.urlencoded({extended:false}))
 
 //app.get('*', (req, res) => {
