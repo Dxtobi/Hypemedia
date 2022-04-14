@@ -15,12 +15,7 @@ import Link from 'react-router-dom/Link';
 class Footer extends Component {
 
     state = {
-        adsText:`or lipsum as it is sometimes known,
-                is dummy text used in laying out print,
-                graphic or web designs.
-                The passage is attributed to an unknown typesetter in
-                the 15th century who is thought to have scrambled parts of
-                Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.`,
+        adsText:`Well Noting Much To see here We just love Entertaining You.`,
         message: "",
         phone: "",
         skip:0
@@ -75,7 +70,7 @@ class Footer extends Component {
                         </div>
                     </div>
                     <div>
-                        <div className="footer-header-text">Advertise With Us</div>
+                        <div className="footer-header-text">About Us</div>
                         <div className="footer-text">
                             {this.state.adsText}
                         </div>
