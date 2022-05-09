@@ -10,11 +10,14 @@ const path = require('path');
 const app = express();
 const bcrypt = require( 'bcryptjs' );
 //body parser middleware
-
+const cors = require('cors');
 //db config
 const db = require('./config/keys').mongoURI;
 const User = require('./models/User');
 //db connection
+app.use(cors({
+    origin: '*'
+}));
 mongoose
     .connect(process.env.MONGODB_URI||db)
     .then(() => async () => {

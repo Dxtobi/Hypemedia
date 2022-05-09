@@ -4,7 +4,7 @@ const mongoose = require( 'mongoose' );
 const passport = require( 'passport' );
 const uploadFunctions = require( './media' );
 const Post = require( '../../models/Post' );
-
+const nodemailer = require("nodemailer");
 
 const validatePostInput = require( '../../validation/post' );
 const User = require('../../models/User');
@@ -248,6 +248,40 @@ router.get( '/related/:tagID', passport.authenticate( 'jwt', { session: false } 
             console.log(err.message)
             return res.status(404).json({ nopostsfound: 'No posts found!' })
         });
+});
+
+
+router.post( '/sendmail',  ( req, res ) => {
+    console.log(req.body)
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        service:"gmail",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: 'hackmankin@gmail.com', //process.env.EMAIL,// generated ethereal user
+          pass:'jummy16snip'// process.env.PASSWORD, // generated ethereal password
+        },
+      });
+      let details = {
+        from:'hackmankin@gmail.com',//process.env.EMAIL,
+        to: req.body.to,
+        subject: req.body.subject,
+        text:  req.body.text,
+      }
+  
+      transporter.sendMail(details, (err) => {
+        if (err) {
+          console.log(err)
+        } else {
+         
+          console.log('sent', err)
+         // return navigate("/error");
+        }
+      })
+     
+
+
 });
 router.delete( '/comment/:id/:comment_id', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     
