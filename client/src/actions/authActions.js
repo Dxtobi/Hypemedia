@@ -52,15 +52,18 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post( '/api/users/register', userData )
     .then(res => { //console.log(res)
-      history.push('/login')
+      //return true
+      history.push('/signin')
     })
     .catch(err => {
-      console.log(err.response.data)
+      console.log(err)
         dispatch({
           type: GET_ERRORS,
           payload: err.response.data
         })}
-      );
+  );
+  
+  //return true
 };
 
 export const loginUser = (userData) => dispatch => {
@@ -137,6 +140,7 @@ export const changePassword = ( userData ) => dispatch => {
 };
 
 export const setCurrentUser = decoded => {
+ // console.log('auth-----action')
   return {
     type: SET_CURRENT_USER,
     payload: decoded

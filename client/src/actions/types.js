@@ -29,3 +29,11 @@ export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const CLEAR_POSTS = "CLEAR_POSTS";
 export const GET_TAGS = "GET_TAGS";
 export const RELATED_POST = "RELATED_POST";
+
+
+
+//
+
+export const GET_MARKETS = 'GET_MARKETS';
+export const SET_MARKETS = 'SET_MARKETS';
+export const SET_MARKET = 'SET_MARKET';

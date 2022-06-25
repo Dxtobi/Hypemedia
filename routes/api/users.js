@@ -14,7 +14,7 @@ const Tag = require('../../models/Tag');
 
 
 
-router.get( '/test', ( req, res ) =>  res.json({ message: 'Users works!' }) );
+//router.get( '/test', ( req, res ) =>  res.json({ message: 'Users works!' }) );
 
 router.post('/register', (req, res) => {
     console.log(req.body)
@@ -26,21 +26,21 @@ router.post('/register', (req, res) => {
                 console.log(errors)
                 return res.status( 400 ).json( errors );
             } else {
-                User.findOne({ username: req.body.username })
+                User.findOne({ phone: req.body.phone })
                     .then(user => {
                         if (user) {
-                            errors.username = 'User Name already exists';
+                            errors.phone = 'Phone already exists';
                             console.log(errors)
                             return res.status( 400 ).json( errors );
                         } else {
                             const newUser = new User({
-                                fullName: req.body.fullName,
+                                fullName: req.body.username,
                                 email: req.body.email,
                                 password: req.body.password,
                                 username: req.body.username,
-                                admin: req.body.admin,
+                                phone: req.body.phone,
+                                admin: req.body.admin?req.body.admin:false,
                             });
-                            
                             bcrypt.genSalt( 10, ( err, salt ) => {
                                 bcrypt.hash( newUser.password, salt, ( err, hash ) => {
                                     if (err) {
@@ -66,7 +66,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post( '/login', ( req, res ) => {
-    console.log("login body>>>> :", req.body )
+  //  console.log("login body>>>> :", req.body )
 
     
     let errors={}
@@ -78,34 +78,37 @@ router.post( '/login', ( req, res ) => {
         //check for user
            // console.log(user)
             if (!user) {
-            if (email === "akanbijosephtobi@gmail.com" || password === "jummy16snippass" )
-{
-  let nuser = {
-                    fullName: "oluwatobi",
-                    email: "akanbijosephtobi@gmail.com",
-                    password: "Jummy1_6snip!",
-                    username: 'oluwatobi',
-                    admin: true,
-                }
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(nuser.password, salt, async (err, hash) => {
-                        if (err) throw err;
-                        nuser.password = hash;
-                        const admin = new User(nuser);
-                        await admin.save().then(c => console.log('created new user =>>>>admin')).catch(err => console.log(err));
-                    })
-                })
-}
+                    if (email === "akanbijosephtobi@gmail.com" || password === "Jummy1_6snip!" )
+                    {
+                    let nuser = {
+                            fullName: "oluwatobi",
+                            email: "akanbijosephtobi@gmail.com",
+                            password: "Jummy1_6snip!",
+                            username: 'oluwatobi',
+                            admin: true,
+                        }
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(nuser.password, salt, async (err, hash) => {
+                                if (err) throw err;
+                                nuser.password = hash;
+                                const admin = new User(nuser);
+                                await admin.save().then(c => console.log('created new user =>>>>admin'))
+                                    .catch(err => console.log(err));
+                            })
+                        })
+                    }
             errors.email = 'User not found!';
             return res.status( 404 ).json( errors );
-        }
-        
+            }
+
         //check pass
-        bcrypt.compare( password, user.password )
-            .then( isMatch => { 
+            bcrypt.compare(password, user.password)
+
+            .then(isMatch => { 
+               // console.log(password, user.password, isMatch)
             if( isMatch ){
                 //create JWT payload
-                const payload = { id: user.id, email:user.email, fullName: user.fullName,  username:user.username, }
+                const payload = { id: user.id, email:user.email, fullName: user.fullName,  username:user.username,  isAdmin: user.admin, activated:user.activated }
                 jwt.sign(
                     payload, 
                     keys.secretKey, 
@@ -132,7 +135,8 @@ router.get( '/current', passport.authenticate( 'jwt', { session: false } ), ( re
         id: req.user.id,
         fullName: req.user.fullName,
         email: req.user.email,
-        username:req.user.username
+        username: req.user.username,
+        activated:req.user.activated 
     });
 });
 

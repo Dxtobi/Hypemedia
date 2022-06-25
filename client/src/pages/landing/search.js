@@ -17,9 +17,7 @@ export const Search = (props) => {
         props.clearPost()
     }, [])
 
-    useEffect(() => {
-        //console.log(props.post)
-    }, [props.post])
+  
 
     
     const getSearchedValues = () => {

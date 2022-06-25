@@ -8,6 +8,8 @@ import Loading from "../../components/shared/Loading"
 
 import NewsList from './components/NewsList'
 import LoadingMore from '../../components/shared/LoadingMore'
+import ImgNav from './components/ImgNav';
+
 
 
 
@@ -59,15 +61,17 @@ export class Home extends Component {
 
         return (
             <div className="Home_container">
+               
+                <LastNews post={posts[0]} />
+                <ImgNav />
+               
+                <div className="divider-text-holder">
+                    <div className="divider-text">Recent Talks</div>
+                </div>
                 <Cheader
                     tags={tags}
                     tagged={this.getTaggedPost}
                     currentTag={this.state.currentTag} />
-                <LastNews post={posts[0]} />
-                <div className="divider-text-holder">
-                    <div className="divider-text">Recent Talks</div>
-                </div>
-
                 <div className="post_list_holder">
                     {posts.map((p, i) => {
                         return <NewsList key={i} post={p}/>

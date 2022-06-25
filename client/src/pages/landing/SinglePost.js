@@ -19,6 +19,7 @@ export class SinglePost extends Component {
             'Sunday',
             'Monday',
             'Tuesday',
+            'Wednesday',
             'Thursday',
             'Friday',
             'Saturday',
@@ -75,10 +76,11 @@ export class SinglePost extends Component {
     render() {
 
         const { post, loading } = this.props
-        console.log(post)
+        //console.log(post)
         if (loading) {
             return <Loading/>
         }
+       
         return (
             <div className="Home_container">
                 <div>
@@ -90,7 +92,7 @@ export class SinglePost extends Component {
 
                 </div>
                 <div className="tagHolder">
-                    {post.tags && post.tags.map((t, i) => {
+                    {post.tags.length > 0 && post.tags.map((t, i) => {
                         return (
                             <div className="tagDiv" key={i}>
                                 {t.name}
@@ -120,7 +122,7 @@ export class SinglePost extends Component {
                 </div>
                 <div>
                 <h2>Related</h2>
-                { post.tags && <Related tagID={post.tags[0]._id}/>}
+                { post.tags.length>0 && <Related tagID={post.tags[0]._id}/>}
                 </div>
                 <div className="comment_area">
                     <Comments addComment={this.props.addComment} comments={post.comments} postId={post._id}/>

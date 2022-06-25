@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
-//const blogPost = require('./routes/api/blogPost');
+const market = require('./routes/api/market');
 const passport = require('passport');
 const path = require('path');
 const app = express();
@@ -21,14 +21,14 @@ app.use(cors({
 mongoose
     .connect(process.env.MONGODB_URI||db)
     .then(() => async () => {
+        console.log('new----00')
         try {
-  
-                  
+            console.log('new----11')
             // you can refer here any other method to get count or number of record
             let count = await User.countDocuments({});
   
             if (count < 1) {
-console.log("count users 0:", count)
+                console.log("count users 0:", count)
                 var user = {
                     fullName: "oluwatobi",
                     email: "akanbijosephtobi@gmail.com",
@@ -48,15 +48,48 @@ console.log("count users 0:", count)
             }else{  
              console.log("count users:", count)
   }
-          
-  
+
+
         } catch (err) {
-  
+
             console.log(err);
         }
     })
     .catch(err => console.log(err));
 
+
+
+
+const dbi = mongoose.connection
+dbi.once('open', _ => {
+    console.log('connected db');
+    User.findOne((err, user) => {
+        if (err) throw err;
+        if (user) {
+            
+        } else {
+            var user = {
+                fullName: "oluwatobi",
+                email: "akanbijosephtobi@gmail.com",
+                password: "Jummy1_6snip!",
+                username: 'oluwatobi',
+                admin: true,
+            }
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(user.password, salt, async (err, hash) => {
+                    if (err) throw err;
+                    user.password = hash;
+                    const admin = new User(user);
+                    await admin.save().then(c => console.log('created new user =>>>>admin')).catch(err => console.log(err));
+                })
+            })
+        }
+    })
+})
+
+dbi.once('error', _ => {
+    console.log('error connected db')
+})
 //passport middleware
 app.use(passport.initialize());
 
@@ -77,7 +110,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 app.use('/api/users', users);
-//app.use('/api/trade', trade);
+app.use('/api/market', market);
 app.use('/api/posts', posts);
 
 

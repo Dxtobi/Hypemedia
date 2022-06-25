@@ -21,7 +21,8 @@ module.exports = passport => {
                   fullName : thisUser.fullName,
                   id : thisUser._id,
                   username : thisUser.username,
-                  email : thisUser.email,
+                  email: thisUser.email,
+                  isAdmin: thisUser.admin
                 }
                 return done( null, user );
             }

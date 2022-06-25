@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+axios.defaults.baseURL = process.env.BASEURL || 'http://localhost:5000'
 const setAuthToken = token => {
   if (token) {
     // Apply to every request

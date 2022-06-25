@@ -26,6 +26,11 @@ import SinglePost from './pages/landing/SinglePost';
 import Messages from './pages/admin/Messages';
 import  Search  from './pages/landing/search';
 import LoginClient from './pages/landing/Login';
+import Market from './pages/landing/Market';
+import Register from './pages/landing/Register';
+import Admin from './components/shared/Auth/Admin';
+import Signin from './pages/Auth/Signin';
+import Signup from './pages/Auth/Signup';
 
 
 
@@ -67,16 +72,29 @@ class App extends Component {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/auth_user" component={LoginClient} />
-                <PrivateRoute exact path="/create/admin" component={newAdmin} />
-                <PrivateRoute exact path="/create/tag" component={NewTag} />
-                <PrivateRoute exact path="/admins/messages" component={Messages} />
-                
-                <PrivateRoute exact path="/edit/post/:id" component={EditPost} />
-                <PrivateRoute exact path="/create/post" component={newPost} />
-                <PrivateRoute exact path="/admin/posts" component={Posts} />
-                <PrivateRoute exact path="/admins" component={Admins} />
-                <PrivateRoute exact path="/admin/home" component={AdminHome} />
-                <PrivateRoute exact path="/adm" component={ AdminHome } />
+                <Route exact path="/market" component={Market} />
+                <Route exact path="/signin" component={Signin} />
+                <Route exact path="/signup" component={Signup} />
+
+                {
+                  //  ONLY LOGGED IN  ROUTE
+                }
+
+                <PrivateRoute exact path="/sellform" component={Register} />
+
+
+                {
+                  //  ADMIN ROUTE
+                }
+                <Admin exact path="/create/admin" component={newAdmin} />
+                <Admin exact path="/create/tag" component={NewTag} />
+                <Admin exact path="/admins/messages" component={Messages} />
+                <Admin exact path="/edit/post/:id" component={EditPost} />
+                <Admin exact path="/create/post" component={newPost} />
+                <Admin exact path="/admin/posts" component={Posts} />
+                <Admin exact path="/admins" component={Admins} />
+                <Admin exact path="/admin/home" component={AdminHome} />
+                <Admin exact path="/adm" component={ AdminHome } />
                 <Route  path="" component={ NotFound }/>
               </Switch>
             </div>

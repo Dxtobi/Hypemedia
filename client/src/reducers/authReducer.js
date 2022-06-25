@@ -3,6 +3,7 @@ import isEmpty from '../validation/is-empty';
 
 const initialState = {
   isAuthenticated: false,
+  isAdmin: false,
   user: {},
   global: {
     lastPost: null,
@@ -14,12 +15,14 @@ const initialState = {
   }
 }
 
-export default function( state = initialState, action ){
+export default function (state = initialState, action) {
+ // console.log(action)
   switch( action.type ){
     case SET_CURRENT_USER:
       return{
           ...state,
-          isAuthenticated: !isEmpty( action.payload ),
+          isAuthenticated: !isEmpty(action.payload),
+          isAdmin:action.payload.isAdmin,
           user: action.payload
       }
       case ADMIN_GET_GLOBAL_INFO:

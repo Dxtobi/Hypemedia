@@ -5,7 +5,7 @@ import {
   GET_ERRORS,
   GET_POSTS,
   POST_LOADING,
-//DELETE_POST,
+  //DELETE_POST,
   GET_POST,
   CLEAR_ERRORS,
   GET_POSTS_TAGS,
@@ -33,6 +33,7 @@ export const addPost = postData => dispatch => {
             })
         );
 };
+
 export const search = data => dispatch => {
   dispatch(setPostLoading());
   axios
@@ -64,10 +65,11 @@ export const getTags = data => dispatch => {
       .catch(err =>
           dispatch({
               type: GET_ERRORS,
-              payload: err.response
+              payload: err
           })
       );
 };
+
 export const getMessage = () => dispatch => {
   dispatch(clearErrors());
   axios
@@ -85,6 +87,7 @@ export const getMessage = () => dispatch => {
           })
       );
 };
+
 export const addMessage = message => dispatch => {
   dispatch(clearErrors());
   axios
@@ -151,6 +154,7 @@ export const getPost = id => dispatch => {
   axios
     .get(`/api/posts/one/${id}`)
     .then(res => {
+     // console.log(res)
         dispatch({
           type: GET_POST,
           payload: res.data

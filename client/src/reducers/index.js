@@ -5,6 +5,8 @@ import profileReducer from './profileReducer';
 import postReducer from './postReducer';
 import statusReduces from './statusReduces';
 import tradeReducer from './tradeReducer';
+import market from './market';
+
 
 export default combineReducers( {
   auth: authReducer,
@@ -12,5 +14,6 @@ export default combineReducers( {
   profile: profileReducer,
   post: postReducer,
   requestStatus: statusReduces,
-  trade:tradeReducer
+  trade: tradeReducer,
+  market:market
 } );

@@ -19,11 +19,21 @@ const UserSchema = new Schema({
       type: String,
       required: true
    },
-    admin:{
-       type: String,
+   admin:{
+       type: Boolean,
        required: true,
        default:false
    },
+   activated:{
+      type: Boolean,
+      required: true,
+      default:false
+   },
+   phone:{
+      type: String,
+      required: true,
+      default:' '
+  },
     date:{
        type: Date,
         default: Date.now

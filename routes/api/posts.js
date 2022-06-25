@@ -12,12 +12,6 @@ const Messages = require('../../models/Messages');
 const Tag = require('../../models/Tag');
 
 
-router.get('/test', (req, res) => {
-    res.json({
-        message: 'Posts works!'
-    })
-});
-
 router.post('/messages', (req, res) => {
     //console.log("hit")
     const message = new Message({
@@ -71,7 +65,7 @@ router.get('/search/:searchValue', (req, res) => {
     });
 });
 router.get('/tags', (req, res) => {
-   console.log("tag")
+  // console.log("tag")
     Tag.find()
     .then(posts => {
         //console.log(posts)
@@ -83,8 +77,8 @@ router.get('/tags', (req, res) => {
     });
 });
 router.get('/:skip', (req, res) => {
-    console.log("hit route")
-    console.log(req.params.skip)
+   // console.log("hit route")
+   // console.log(req.params.skip)
     Post.find()
         .populate('tags')
         .sort({ date: -1 })
@@ -96,13 +90,13 @@ router.get('/:skip', (req, res) => {
     })
         .catch(err => {
             console.log(err.message)
-            return res.status(404).json({ nopostsfound: 'No posts found!' })
+            return res.status(404).json({ no_post_found: 'No posts found!' })
         });
 });
 
 router.get('/tagged/:tag/:skip', (req, res) => {
-    console.log("hit route tagged")
-    console.log(req.params.skip, req.params.tag )
+ //   console.log("hit route tagged")
+  //  console.log(req.params.skip, req.params.tag )
     Post.find({tags:req.params.tag})
         .populate('tags')
         .sort({ date: -1 })
@@ -135,10 +129,15 @@ router.get('/one/:id', (req, res) => {
 });
 
 router.post( '/', uploadFunctions.upload.array('postImageData'), passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    
-    console.log("hit-create post")
+  
     let allImg = uploadFunctions.pushImgs(req.files)
-    console.log(req.body)
+  
+    if (allImg.length < 0 || req.body.name === '' || req.body.text === '' || req.body.tags === '') {
+        return res.status(400).json({error:'something went wrong'})
+   }
+    //console.log("hit-create post")
+    
+   // console.log(req.body)
     const newPost = new Post( {
         text: req.body.text,
         name: req.body.header,
@@ -149,9 +148,9 @@ router.post( '/', uploadFunctions.upload.array('postImageData'), passport.authen
         videoLink:req.body.videoLink,
         user: req.user.id
     } );
-    
+
     newPost.save().then(post => {
-        console.log(post)
+      //  console.log(post)
         return res.json(post)
     }).catch(err => {
         console.log(err.message)

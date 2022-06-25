@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { loginUser } from '../../../actions/authActions'
+import { loginUser } from '../../actions/authActions'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
-export class Login extends Component {
+export class Signin extends Component {
 
     state = {
         email: "",
@@ -15,16 +15,21 @@ export class Login extends Component {
 
     
     componentDidMount() {
-        this.setState({ redirect: this.props.auth.isAdmin })
-        console.log(this.props.auth.isAdmin)
+        this.setState({ redirect: this.props.auth.isAuthenticated })
+        console.log(this.props.auth.isAuthenticated)
     }
     
     render() {
-        if (this.props.auth.isAdmin) {
-            return <Redirect to="/adm" />
+        if (this.props.auth.isAuthenticated) {
+            return <Redirect to="/" />
         }
         return (
-            <div className="login_admin">
+            <div className='Home_container'>
+                <div className="login_client">
+                <div className='auth_ind_text'>
+                        <h1>Sign In</h1>
+                        <div>Welcome Back</div>
+                </div>
                 <input className="login_input" type="email" placeholder="enter email"
                     onChange={(e) => this.setState({ email: e.target.value })}
                 />
@@ -38,7 +43,11 @@ export class Login extends Component {
                         email: this.state.email,
                     }
                     this.props.loginUser(data)
-                }} className="login_input_button" >Login</button>
+                    }} className="login_input_button" >Login</button>
+                     <Link className='reg_log_link' to='/signup'>No Account Yet?</Link>
+                </div>
+                
+               
             </div>
         )
     }
@@ -52,4 +61,4 @@ const mapDispatchToProps = {
     loginUser
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Signin)

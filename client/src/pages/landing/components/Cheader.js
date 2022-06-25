@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 export const Cheader = ({tagged, tags, currentTag}) => {
-    console.log(tags)
+   // console.log(tags)
     return (
         <div className="top_header_btn_holder">
             <button className="top_header_btn" onClick={()=>tagged("all")}>All</button>
