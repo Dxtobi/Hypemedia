@@ -43,6 +43,7 @@ node_modules/
 jspm_packages/
 client/node_modules/
 upload/
+config/accesskeys.js
 
 # TypeScript v1 declaration files
 typings/
