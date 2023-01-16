@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
-const market = require('./routes/api/market');
+//const market = require('./routes/api/market');
 const passport = require('passport');
 const path = require('path');
 const app = express();
