@@ -19,7 +19,7 @@ app.use(cors({
     origin: '*'
 }));
 mongoose
-    .connect(process.env.MONGODB_URI||db)
+    .connect(process.env.MONGODB_URI||db, { useNewUrlParser: true,  useUnifiedTopology: true })
     .then(() => async () => {
         console.log('new----00')
         try {
