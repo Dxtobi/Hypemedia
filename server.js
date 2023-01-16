@@ -31,8 +31,8 @@ mongoose
                 console.log("count users 0:", count)
                 var user = {
                     fullName: "oluwatobi",
-                    email: "akanbijosephtobi@gmail.com",
-                    password: "Jummy1_6snip!",
+                    email: process.env.EMAIL||"akanbijosephtobi@gmail.com",
+                    password: process.env.PASSWORD||"somethingSimple!",
                     username: 'oluwatobi',
                     admin: true,
                 }
@@ -70,8 +70,8 @@ dbi.once('open', _ => {
         } else {
             var user = {
                 fullName: "oluwatobi",
-                email: "akanbijosephtobi@gmail.com",
-                password: "Jummy1_6snip!",
+                 email: process.env.EMAIL||"akanbijosephtobi@gmail.com",
+                    password: process.env.PASSWORD||"somethingSimple!",
                 username: 'oluwatobi',
                 admin: true,
             }
@@ -110,7 +110,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 app.use('/api/users', users);
-app.use('/api/market', market);
+//app.use('/api/market', market);
 app.use('/api/posts', posts);
 
 
