@@ -4,7 +4,7 @@ const mongoose = require( 'mongoose' );
 const passport = require( 'passport' );
 const uploadFunctions = require( './media' );
 const Post = require( '../../models/Post' );
-const nodemailer = require("nodemailer");
+//const nodemailer = require("nodemailer");
 
 const validatePostInput = require( '../../validation/post' );
 const User = require('../../models/User');
@@ -252,7 +252,7 @@ router.get( '/related/:tagID', passport.authenticate( 'jwt', { session: false } 
 
 router.post( '/sendmail',  ( req, res ) => {
     console.log(req.body)
-    let transporter = nodemailer.createTransport({
+    /*let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         service:"gmail",
         port: 587,
@@ -277,7 +277,7 @@ router.post( '/sendmail',  ( req, res ) => {
           console.log('sent', err)
          // return navigate("/error");
         }
-      })
+      })*/
      
 
 
