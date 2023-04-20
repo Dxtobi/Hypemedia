@@ -21,20 +21,20 @@ app.use(cors({
 mongoose
     .connect(process.env.MONGODB_URI||db, { useNewUrlParser: true,  useUnifiedTopology: true })
     .then(() => async () => {
-        console.log('new----00')
+       
         try {
-            console.log('new----11')
+            
             // you can refer here any other method to get count or number of record
             let count = await User.countDocuments({});
   
             if (count < 1) {
-                console.log("count users 0:", count)
+               
                 var user = {
                     fullName: "oluwatobi",
-                    email: process.env.EMAIL||"akanbijosephtobi@gmail.com",
-                    password: process.env.PASSWORD||"somethingSimple!",
+                    email: process.env.EMAIL,
+                    password: process.env.PASSWORD,
                     username: 'oluwatobi',
-                    admin: true,
+                    admin: process.env.FIRSTUSER,
                 }
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(user.password, salt, async (err, hash) => {
@@ -61,31 +61,7 @@ mongoose
 
 
 const dbi = mongoose.connection
-dbi.once('open', _ => {
-    console.log('connected db');
-    User.findOne((err, user) => {
-        if (err) throw err;
-        if (user) {
-            
-        } else {
-            var user = {
-                fullName: "oluwatobi",
-                 email: process.env.EMAIL||"akanbijosephtobi@gmail.com",
-                    password: process.env.PASSWORD||"somethingSimple!",
-                username: 'oluwatobi',
-                admin: true,
-            }
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(user.password, salt, async (err, hash) => {
-                    if (err) throw err;
-                    user.password = hash;
-                    const admin = new User(user);
-                    await admin.save().then(c => console.log('created new user =>>>>admin')).catch(err => console.log(err));
-                })
-            })
-        }
-    })
-})
+
 
 dbi.once('error', _ => {
     console.log('error connected db')
